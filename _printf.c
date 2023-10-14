@@ -1,25 +1,27 @@
 #include "main.h"
 
 /**
- * _printf - custom printf fucntion
+ * _printf - custom printf function
  * @format: input
  * Return: num of chars printed
  */
 
 int _printf(const char *format, ...)
 {
-	va_list list;
+	int i;
 	int count;
+	va_list list;
 
+	i = 0;
 	count = 0;
 	va_start(list, format);
 
-	while (*format != '\0')
+	while (format != NULL && format[i] != '\0')
 	{
-		if (*format == '%')
+		if (format[i] == '%' && format[i + 1] != '\0')
 		{
-			format++;
-			switch (*format)
+			i++;
+			switch (format[i])
 			{
 				case 'c':
 					print_char(va_arg(list, int), &count);
@@ -30,20 +32,19 @@ int _printf(const char *format, ...)
 				case '%':
 					print_char('%', &count);
 					break;
-				default:
-					print_string("Error: unsupported specifier!\n", &count);
+				case 'd':
+				case 'i':
+					print_integer(va_arg(list, int), &count);
 					break;
 			}
-			format++;
 		}
 		else
 		{
-			_putchar(*format);
-			format++;
+			_putchar(format[i]);
 			count++;
 		}
+		i++;
 	}
 	va_end(list);
-	printf("number of char printed: %d\n", count);
 	return (count);
 }
