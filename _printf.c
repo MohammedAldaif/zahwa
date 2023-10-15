@@ -8,14 +8,11 @@
 
 int _printf(const char *format, ...)
 {
-	int i;
-	int count;
+	int i, count;
 	va_list list;
 
-	i = 0;
-	count = 0;
+	i = 0, count = 0;
 	va_start(list, format);
-
 	while (format != NULL && format[i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] != '\0')
@@ -35,6 +32,9 @@ int _printf(const char *format, ...)
 				case 'd':
 				case 'i':
 					print_integer(va_arg(list, int), &count);
+					break;
+				case 'R':
+					convertToRot13(va_arg(list, char*), &count);
 					break;
 			}
 		}

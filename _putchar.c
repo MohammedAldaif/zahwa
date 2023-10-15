@@ -3,7 +3,7 @@
 /**
  * _putchar - prints a single char to stdout
  * @ch: char to be printed
- * Return: int.
+ * Return: int
  */
 
 int _putchar(char ch)
